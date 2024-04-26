@@ -13,6 +13,8 @@ export type GlobalHeaderRightProps = {
   children?: React.ReactNode;
 };
 
+
+// todo 改 用户头像下拉框 让前后端字段不一样的地方统一 从而能显示出来头像
 export const AvatarName = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};

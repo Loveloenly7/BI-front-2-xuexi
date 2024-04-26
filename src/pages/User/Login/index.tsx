@@ -1,19 +1,19 @@
 import Footer from '@/components/Footer';
-import { listChartByPageUsingPOST } from '@/services/yubi/chartController';
-import { getLoginUserUsingGET, userLoginUsingPOST } from '@/services/yubi/userController';
-import { Link } from '@@/exports';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormText } from '@ant-design/pro-components';
-import { useEmotionCss } from '@ant-design/use-emotion-css';
-import { Helmet, history, useModel } from '@umijs/max';
-import { message, Tabs } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { flushSync } from 'react-dom';
+import {listChartByPageUsingPOST} from '@/services/yubi/chartController';
+import {getLoginUserUsingGET, userLoginUsingPOST} from '@/services/yubi/userController';
+import {Link} from '@@/exports';
+import {LockOutlined, UserOutlined} from '@ant-design/icons';
+import {LoginForm, ProFormText} from '@ant-design/pro-components';
+import {useEmotionCss} from '@ant-design/use-emotion-css';
+import {Helmet, history, useModel} from '@umijs/max';
+import {message, Tabs} from 'antd';
+import React, {useEffect, useState} from 'react';
+import {flushSync} from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
-  const { initialState, setInitialState } = useModel('@@initialState');
+  const {initialState, setInitialState} = useModel('@@initialState');
   const containerClassName = useEmotionCss(() => {
     return {
       display: 'flex',
@@ -35,18 +35,21 @@ const Login: React.FC = () => {
   /**
    * 登陆成功后，获取用户登录信息
    */
-  const fetchUserInfo = async () => {
-    const userInfo = await getLoginUserUsingGET();
-    if (userInfo) {
-      flushSync(() => {
-        setInitialState((s) => ({
-          ...s,
-          currentUser: userInfo,
-        }));
-      });
-    }
-  };
 
+    // todo 改
+  const fetchUserInfo = async () => {
+      const userInfo = await getLoginUserUsingGET();
+      if (userInfo) {
+        flushSync(() => {
+          setInitialState((s) => ({
+            ...s,
+            currentUser: userInfo,
+          }));
+        });
+      }
+    };
+
+  // todo 改
   const handleSubmit = async (values: API.UserLoginRequest) => {
     try {
       // 登录
@@ -67,6 +70,7 @@ const Login: React.FC = () => {
       message.error(defaultLoginFailureMessage);
     }
   };
+  /*todo  用户点击登录后 会执行handlesubmit方法*/
   return (
     <div className={containerClassName}>
       <Helmet>
@@ -85,14 +89,15 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="鱼智能 BI"
+          logo={<img alt="logo" src="/logo.svg"/>}
+          title="HW BI"
           subTitle={
             <a href="https://yupi.icu" target="_blank">
-              编程导航知识星球的原创项目
+              我的学习项目
             </a>
           }
           onFinish={async (values) => {
+            /*todo 改 这里修改成为了后端自己的类型  API.UserLoginRequest*/
             await handleSubmit(values as API.UserLoginRequest);
           }}
         >
@@ -113,7 +118,7 @@ const Login: React.FC = () => {
                 name="userAccount"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined />,
+                  prefix: <UserOutlined/>,
                 }}
                 placeholder={'请输入用户名'}
                 rules={[
@@ -127,7 +132,7 @@ const Login: React.FC = () => {
                 name="userPassword"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined />,
+                  prefix: <LockOutlined/>,
                 }}
                 placeholder={'请输入密码'}
                 rules={[
@@ -148,7 +153,7 @@ const Login: React.FC = () => {
           </div>
         </LoginForm>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };

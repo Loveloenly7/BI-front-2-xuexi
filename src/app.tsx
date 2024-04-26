@@ -120,8 +120,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  * 它基于 axios 和 ahooks 的 useRequest 提供了一套统一的网络请求和错误处理方案。
  * @doc https://umijs.org/docs/max/request#配置
  */
+
+//todo 请求后端的地址
 export const request = {
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://localhost:8081',
+  // todo 前端 需要传过去cookie withCredentials: true,
   withCredentials: true,
   ...errorConfig,
 };
